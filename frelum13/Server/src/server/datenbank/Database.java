@@ -33,18 +33,22 @@ public class Database
     myCon = connect.getConn();
   }
   
-  public void wirte(String insertQuery) throws SQLException
+  public int wirte(String insertQuery) throws SQLException
   {
     myStmt = instance.myCon.createStatement();        
-    myStmt.executeUpdate("INSERT INTO horses (name,time,turnaround,speed) VALUES ("+ insertQuery +")");
-    myStmt.close();
+    return myStmt.executeUpdate("INSERT INTO horses (name,time,turnaround,speed) VALUES ("+ insertQuery +")");
   }
   
   public int update(String updateQuery) throws SQLException
   {
     myStmt = instance.myCon.createStatement();
     return myStmt.executeUpdate("UPDATE horses SET " + updateQuery);
-    
+  }
+  
+  public int delete(String deleteQuery) throws SQLException
+  {
+      myStmt = instance.myCon.createStatement();
+    return myStmt.executeUpdate("DELETE FROM horses WHERE name =" + deleteQuery);
   }
   
   public Object read (String id) 

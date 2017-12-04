@@ -3,6 +3,7 @@ package server.main;
 import java.io.IOException;
 import server.datenbank.Database;
 import server.server.Server;
+import server.udp.UDPServer;
 
 /**
  *
@@ -20,5 +21,6 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
         new Server(1111).start();
+        new UDPServer();
     }
 }

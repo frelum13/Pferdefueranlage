@@ -6,7 +6,7 @@
 package server.request;
 
 import javax.json.JsonObject;
-import server.datenbank.DatabaseDelete;
+import server.datenbank.Database;
 import server.response.AbstractResponse;
 import server.response.ResponseDeleteHorse;
 
@@ -41,7 +41,7 @@ public class RequestDeleteHorse extends AbstractRequest{
         
         try 
         {
-            DatabaseDelete loeschen = new DatabaseDelete(name);
+            Database.getInstance().delete("'" + name + "'");
         } 
         catch (Exception e) 
         {
