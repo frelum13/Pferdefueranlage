@@ -9,10 +9,12 @@ package udp;
     Silver Moon (m00n.silv3r@gmail.com)
 */
  
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
  
 public class Udp
@@ -20,7 +22,7 @@ public class Udp
     public static void main(String args[])
     {
         DatagramSocket sock = null;
-        int port = 7777;
+        int port = 5555;
         String s;
          
         BufferedReader cin = new BufferedReader(new InputStreamReader(System.in));
@@ -28,17 +30,13 @@ public class Udp
         try
         {
             sock = new DatagramSocket();
-             
-            InetAddress host = InetAddress.getByName("localhost");
-             
+            InetAddress host = InetAddress.getByName("127.0.0.1");
+            byte[] b = new byte[1];    
+            DatagramPacket  dp = new DatagramPacket(b , b.length , host , port);
+                
             while(true)
-            {
-                //take input and send the packet
-                echo("Enter message to send : ");
-                s = (String)cin.readLine();
-                byte[] b = s.getBytes();
-                 
-                DatagramPacket  dp = new DatagramPacket(b , b.length , host , port);
+            {  
+                
                 sock.send(dp);
                  
                 //now receive reply
@@ -47,10 +45,7 @@ public class Udp
                 DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
                 sock.receive(reply);
                 
-                System.out.println(reply.getData().length);
-                
                 byte[] data = reply.getData();
-                
                 
                 ByteArrayInputStream bais = new ByteArrayInputStream(data);
                 
@@ -58,15 +53,13 @@ public class Udp
                 
                 File file = new File(String.format("capture-%d.jpg", System.currentTimeMillis()));
                 ImageIO.write(bild, "JPG", file);
-                
-                System.out.println(data.length);
             }
         }             
          
         catch(IOException e)
         {
             System.err.println("IOException " + e);
-        }
+        } 
     }
      
     //simple function to echo data to terminal

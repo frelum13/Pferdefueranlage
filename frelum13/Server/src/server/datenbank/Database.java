@@ -1,8 +1,14 @@
 package server.datenbank;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 
 /**
@@ -48,11 +54,44 @@ public class Database
   public int delete(String deleteQuery) throws SQLException
   {
       myStmt = instance.myCon.createStatement();
-    return myStmt.executeUpdate("DELETE FROM horses WHERE name =" + deleteQuery);
+      return myStmt.executeUpdate("DELETE FROM horses WHERE id =" + deleteQuery);
   }
   
-  public Object read (String id) 
+  public void read(String readQuery) throws SQLException
   {
-    return null;
+      myStmt= instance.myCon.createStatement();
+      ResultSet myRs = myStmt.executeQuery(readQuery);
+      if(myRs.next())
+      {
+          
+      }
+  }
+  
+  private int maxId() throws SQLException
+  {
+      int idmax = 0;
+      myStmt = instance.myCon.createStatement();
+      ResultSet myRs = myStmt.executeQuery("SELECT MAX(id) FROM horses");
+      if(myRs.next())
+      {
+           idmax = myRs.getInt(1);
+      }
+      return idmax;
+  }
+          
+  public List list () throws SQLException 
+  {
+        List<JsonObject> names = new ArrayList<>();
+        JsonObjectBuilder b = Json.createObjectBuilder();
+        for(int i = 0; i <= maxId() ; i++)
+        {
+            ResultSet myRs = myStmt.executeQuery("SELECT * FROM horses WHERE id = '" + i + "'");
+            if(myRs.next())
+            {
+                names.add(b.add("id", myRs.getString(1)).add("name", myRs.getString(2)).build());
+            }
+        }
+        
+    return names;
   }
 }

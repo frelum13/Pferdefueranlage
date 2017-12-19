@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Server
+public class Server implements Runnable
 {
   private final int port;
   
@@ -18,26 +18,30 @@ public class Server
   {
     this.port = port;
   }
-    
-public void start() throws IOException
+  
+  @Override
+  public void run()
   {
-    ServerSocket serverSocket = new ServerSocket(port);
+      try {
+          ServerSocket serverSocket = new ServerSocket(port);
     
-    log.info("Server: Server gestarted");
+            log.info("Server: Server gestarted");
     
-    // accept blockiert Programmablauf bis ein Client
-    // eine Verbindung herstellt (SYN, SYN+ACK, ACK)
-    while (true)
-    {
-      Socket socket = serverSocket.accept();
-      socket.setSoTimeout(100);      
-      log.log(Level.INFO, "Server: Verbindung hergestellt: {0}", socket);
-      // System.out.println("Verbindung hergstellt: " + socket);
-      new Thread(new server.server.ConnectionThreadServer(socket)).start();
-    }
+            // accept blockiert Programmablauf bis ein Client
+            // eine Verbindung herstellt (SYN, SYN+ACK, ACK)
+            while (true)
+            {
+                Socket socket = serverSocket.accept();
+                socket.setSoTimeout(100);      
+                log.log(Level.INFO, "Server: Verbindung hergestellt: {0}", socket);
+                // System.out.println("Verbindung hergstellt: " + socket);
+                new Thread(new server.server.ConnectionThreadServer(socket)).start();
+            }
+          
+      } 
+      catch (IOException e) {
+          e.printStackTrace();
+      }
     
-//            serverSocket.close();
-//            System.out.println("socket closed");
   }
-
   }

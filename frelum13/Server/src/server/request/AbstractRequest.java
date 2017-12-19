@@ -33,12 +33,13 @@ public abstract class AbstractRequest {
                 case "version": rv = new RequestVersion(jsonObj); break;
                 case "water": rv = new RequestWater(jsonObj); break;
                 case "stop": rv = new RequestStop(jsonObj); break;
-                case "deletehorse": rv = new RequestDeleteHorse(jsonObj); break;
+                case "delete": rv = new RequestDeleteHorse(jsonObj); break;
                 case "infohorse": rv = new RequestInfoHorse(jsonObj); break;
                 case "new": rv = new RequestNew(jsonObj); break;
                 case "update": rv = new RequestUpdateHorse(jsonObj); break;
                 case "start": rv = new RequestStart(jsonObj); break;
                 case "get": rv = new RequestMachine(jsonObj); break;
+                case "all": rv = new RequestAll(jsonObj); break;
                 default: throw new RequestJsonException(json, "invalid command");
             }
             return rv;

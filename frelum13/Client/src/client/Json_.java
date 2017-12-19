@@ -12,11 +12,11 @@ public class Json_{
     public static JSONObject write() 
     {
         JSONObject obj = new JSONObject();
-        obj.put("command", "update");      
-        obj.put("name", "fabio");
-        obj.put("time", 2);
-        obj.put("turnaround", 4);
-        obj.put("speed", 4);
+        obj.put("command", "all");      
+        //obj.put("id", 1);
+//        obj.put("time", 2);
+//        obj.put("turnaround", 4);
+//        obj.put("speed", 5);
         
         
         

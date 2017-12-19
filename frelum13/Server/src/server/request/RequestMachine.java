@@ -46,6 +46,6 @@ public class RequestMachine extends AbstractRequest{
 
     @Override
     public AbstractResponse getResponse() throws Exception {
-        return new ResponseMachine(this, Main.WATER, Main.TIME, Main.TURNAROUND, Main.STOP);
+        return null;
     }
 }

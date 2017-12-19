@@ -5,10 +5,7 @@
  */
 package server.request;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.JsonObject;
-import server.datenbank.DatabaseRead;
 import server.response.AbstractResponse;
 import server.response.ResponseInfoHorse;
 
@@ -51,7 +48,6 @@ public class RequestInfoHorse extends AbstractRequest{
     public AbstractResponse getResponse()
             throws Exception
     {
-        DatabaseRead lesen = new DatabaseRead(name);
-        return new ResponseInfoHorse(lesen.getHname(), lesen.getTime(), lesen.getTurnaround(),this);
+        return null;
     }
 }

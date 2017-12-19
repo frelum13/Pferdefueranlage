@@ -6,7 +6,6 @@
 package server.request;
 
 import javax.json.JsonObject;
-import server.datenbank.DatabaseRead;
 import server.main.Main;
 import server.response.AbstractResponse;
 import server.response.ResponseStart;
@@ -39,10 +38,7 @@ public class RequestStart extends AbstractRequest
         
         if(name == null || name.isEmpty())
             throw new RequestException("name must not be empty");
-        
-        DatabaseRead lesen = new DatabaseRead(name);
-        Main.TIME = Integer.parseInt(lesen.getTime());
-        Main.TURNAROUND = Integer.parseInt(lesen.getTurnaround());        
+            
     }
     
     @Override

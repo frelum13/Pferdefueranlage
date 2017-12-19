@@ -16,10 +16,10 @@ import server.response.ResponseDeleteHorse;
  */
 public class RequestDeleteHorse extends AbstractRequest{
 
-    private final String name;
+    private final int id;
     
-    public RequestDeleteHorse(String name) {
-        this.name = name;
+    public RequestDeleteHorse(int name) {
+        this.id = name;
     }
 
     public RequestDeleteHorse(JsonObject jsonObj) throws RequestException {
@@ -29,19 +29,19 @@ public class RequestDeleteHorse extends AbstractRequest{
             throw new RequestException("wrong number of attributes");
         try 
         {  
-            name = jsonObj.getString("name");
+            id = jsonObj.getInt("id");
         } 
         catch (Exception e) 
         {
             throw new RequestException("no attribute name", e);
         }
         
-        if(name == null || name.isEmpty())
+        if(id == 0)
             throw new RequestException("name must not be empty");
         
         try 
         {
-            Database.getInstance().delete("'" + name + "'");
+            Database.getInstance().delete("'" + id + "'");
         } 
         catch (Exception e) 
         {
@@ -51,7 +51,7 @@ public class RequestDeleteHorse extends AbstractRequest{
 
     @Override
     public String getCommand() {
-        return "deletehorse";
+        return "delete";
     }
 
     @Override
