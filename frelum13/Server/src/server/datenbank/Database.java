@@ -9,8 +9,6 @@ import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-
-
 /**
  *
  * @author ...
@@ -42,31 +40,39 @@ public class Database
   public int wirte(String insertQuery) throws SQLException
   {
     myStmt = instance.myCon.createStatement();        
-    return myStmt.executeUpdate("INSERT INTO horses (name,time,turnaround,speed) VALUES ("+ insertQuery +")");
+    return myStmt.executeUpdate(insertQuery);
   }
   
   public int update(String updateQuery) throws SQLException
   {
     myStmt = instance.myCon.createStatement();
-    return myStmt.executeUpdate("UPDATE horses SET " + updateQuery);
+    return myStmt.executeUpdate(updateQuery);
   }
   
   public int delete(String deleteQuery) throws SQLException
   {
       myStmt = instance.myCon.createStatement();
-      return myStmt.executeUpdate("DELETE FROM horses WHERE id =" + deleteQuery);
+      return myStmt.executeUpdate(deleteQuery);
   }
   
-  public void read(String readQuery) throws SQLException
+  public Horse read(String readQuery) throws SQLException
   {
       myStmt= instance.myCon.createStatement();
       ResultSet myRs = myStmt.executeQuery(readQuery);
+      Horse horse = new Horse();
       if(myRs.next())
       {
-          
+          horse.setId(myRs.getInt(1));
+          horse.setName(myRs.getString(2));
+          horse.setTime(myRs.getInt(3));
+          horse.setTurnaround(myRs.getInt(4));
+          horse.setSpeed(myRs.getInt(5));
       }
+      myRs.close();
+      instance.myCon.close();
+      
+      return horse;
   }
-  
   private int maxId() throws SQLException
   {
       int idmax = 0;
@@ -76,7 +82,9 @@ public class Database
       {
            idmax = myRs.getInt(1);
       }
-      return idmax;
+      myRs.close();
+      instance.myCon.close();
+      return idmax;  
   }
           
   public List list () throws SQLException 
@@ -90,8 +98,9 @@ public class Database
             {
                 names.add(b.add("id", myRs.getString(1)).add("name", myRs.getString(2)).build());
             }
+            myRs.close();
+            instance.myCon.close();
         }
-        
     return names;
   }
 }

@@ -17,13 +17,14 @@ import server.response.ResponseUpdateHorse;
 public class RequestUpdateHorse extends AbstractRequest{
 
     private final String name;
-    private final int time, turnaround,speed;
+    private final int id, time, turnaround,speed;
     
-    public RequestUpdateHorse(String name, int time, int turnaround, int speed) {
+    public RequestUpdateHorse(String name, int time, int turnaround, int speed, int id) {
         this.name = name;
         this.time = time;
         this.turnaround = turnaround;
         this.speed = speed;
+        this.id = id;
     }
 
     public RequestUpdateHorse(JsonObject jsonObj) throws RequestException {
@@ -37,6 +38,7 @@ public class RequestUpdateHorse extends AbstractRequest{
             time = jsonObj.getInt("time");
             turnaround = jsonObj.getInt("turnaround");
             speed = jsonObj.getInt("speed");
+            id = jsonObj.getInt("id");
         } 
         catch (Exception e) 
         {
@@ -50,10 +52,12 @@ public class RequestUpdateHorse extends AbstractRequest{
             throw new RequestException("turnaround must not be empty");
         if(speed <= 0)
             throw new RequestException("speed must not be empty");
+        if(id <= 0)
+            throw new RequestException("speed must not be empty");
         
         try 
         {
-           Database.getInstance().update("speed = '"+ speed + "', time = '" + time + "', turnaround = '" + turnaround + "' Where name='" + name +"'");
+           Database.getInstance().update("UPDATE horses SET speed = '"+ speed + "', time = '" + time + "', turnaround = '" + turnaround + "', name = '" + name + "' Where id ='" + id +"'");
         } 
         catch (Exception e) 
         {

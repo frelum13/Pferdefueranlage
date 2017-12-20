@@ -6,6 +6,8 @@
 package server.request;
 
 import javax.json.JsonObject;
+import server.datenbank.Database;
+import server.datenbank.Horse;
 import server.response.AbstractResponse;
 import server.response.ResponseInfoHorse;
 
@@ -15,10 +17,10 @@ import server.response.ResponseInfoHorse;
  */
 public class RequestInfoHorse extends AbstractRequest{
 
-    private final String name;
+    private final int id;
     
-    public RequestInfoHorse(String name) {
-        this.name = name;
+    public RequestInfoHorse(int id) {
+        this.id = id;
     }
 
     public RequestInfoHorse(JsonObject jsonObj) throws RequestException {
@@ -28,26 +30,28 @@ public class RequestInfoHorse extends AbstractRequest{
             throw new RequestException("wrong number of attributes");
         try 
         {  
-            name = jsonObj.getString("name");
+           id = jsonObj.getInt("id");
         } 
         catch (Exception e) 
         {
             throw new RequestException("no attribute name", e);
         }
         
-        if(name == null || name.isEmpty())
+        if(id == 0)
             throw new RequestException("name must not be empty");
     }
     
     @Override
     public String getCommand() {
-        return "infohorse";
+        return "info";
     }
 
     @Override
     public AbstractResponse getResponse()
             throws Exception
     {
-        return null;
+        Horse horse = Database.getInstance().read("SELECT * FROM horses WHERE id = '" + id + "'");
+        
+        return new ResponseInfoHorse(horse.getName(), horse.getTime(), horse.getTurnaround(), horse.getId(), horse.getSpeed(), this);
     }
 }

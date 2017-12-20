@@ -41,7 +41,7 @@ public class RequestDeleteHorse extends AbstractRequest{
         
         try 
         {
-            Database.getInstance().delete("'" + id + "'");
+            Database.getInstance().delete("DELETE FROM horses WHERE id ='" + id + "'");
         } 
         catch (Exception e) 
         {

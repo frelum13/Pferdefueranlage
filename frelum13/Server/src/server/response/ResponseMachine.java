@@ -18,16 +18,17 @@ import server.request.AbstractRequest;
 public class ResponseMachine extends AbstractResponse{
 
     private final boolean water;
-    private final int time,turnaround;
+    private final int time,turnaround,speed;
     private final String stop;
     
-    public ResponseMachine(AbstractRequest request, boolean water, int time, int turnaround, String stop) {
+    public ResponseMachine(AbstractRequest request, boolean water, int time, int turnaround, int speed, String stop) {
         super(request);
         
         this.water = water;
         this.time = time;
         this.turnaround = turnaround;
         this.stop = stop;
+        this.speed = speed;
     }
 
     @Override
@@ -37,6 +38,7 @@ public class ResponseMachine extends AbstractResponse{
         b.add("water", water);
         b.add("time", time);
         b.add("turnaround", turnaround);
+        b.add("speed", speed);
         b.add("stop", stop);
         
         return b.build();

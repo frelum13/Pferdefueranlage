@@ -54,7 +54,7 @@ public class RequestNew extends AbstractRequest{
         
         try 
         {
-            Database.getInstance().wirte("'" + name + "','" + time + "','" + turnaround + "','"+ speed +"'");
+            Database.getInstance().wirte("INSERT INTO horses (name,time,turnaround,speed) VALUES ('" + name + "','" + time + "','" + turnaround + "','"+ speed +"')");
         } 
         catch (Exception e) 
         {

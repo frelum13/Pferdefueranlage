@@ -6,6 +6,8 @@
 package server.request;
 
 import javax.json.JsonObject;
+import server.datenbank.Database;
+import server.datenbank.Horse;
 import server.main.Main;
 import server.response.AbstractResponse;
 import server.response.ResponseMachine;
@@ -46,6 +48,8 @@ public class RequestMachine extends AbstractRequest{
 
     @Override
     public AbstractResponse getResponse() throws Exception {
-        return null;
+        Horse horse = Database.getInstance().read("SELECT * FROM horses WHERE id = '" + Main.ID + "'");
+        
+        return new ResponseMachine(this, Main.WATER, horse.getTime() , horse.getTurnaround(), horse.getSpeed(), Main.STOP);
     }
 }

@@ -12,8 +12,8 @@ public class Json_{
     public static JSONObject write() 
     {
         JSONObject obj = new JSONObject();
-        obj.put("command", "all");      
-        //obj.put("id", 1);
+        obj.put("command", "get");      
+        obj.put("error", "Hallo");
 //        obj.put("time", 2);
 //        obj.put("turnaround", 4);
 //        obj.put("speed", 5);

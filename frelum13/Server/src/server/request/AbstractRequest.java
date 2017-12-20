@@ -34,7 +34,7 @@ public abstract class AbstractRequest {
                 case "water": rv = new RequestWater(jsonObj); break;
                 case "stop": rv = new RequestStop(jsonObj); break;
                 case "delete": rv = new RequestDeleteHorse(jsonObj); break;
-                case "infohorse": rv = new RequestInfoHorse(jsonObj); break;
+                case "info": rv = new RequestInfoHorse(jsonObj); break;
                 case "new": rv = new RequestNew(jsonObj); break;
                 case "update": rv = new RequestUpdateHorse(jsonObj); break;
                 case "start": rv = new RequestStart(jsonObj); break;

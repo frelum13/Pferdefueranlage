@@ -14,34 +14,26 @@ import server.request.AbstractRequest;
  *
  * @author lukas
  */
-public class ResponseInfoHorse extends AbstractResponse{
+public class ResponseLogin extends AbstractResponse
+{
 
-    private final String name;
-    private final int time;
-    private final int turnaround;
-    private final int id;
-    private final int speed;
+    private String pwd;
     
-    public ResponseInfoHorse(String name, int time, int turnaround, int id, int speed, AbstractRequest request) {
+    public ResponseLogin(AbstractRequest request, String pwd) {
         super(request);
         
-        this.name = name;
-        this.time = time;
-        this.turnaround = turnaround;
-        this.id = id;
-        this.speed = speed;
+        this.pwd = pwd;
     }
-
+    
     @Override
     public JsonObject toJsonObject() {
+        
         JsonObjectBuilder b = Json.createObjectBuilder();
+        
         b.add("command", request.getCommand());
-        b.add("id", id);
-        b.add("name", name);
-        b.add("time", time);
-        b.add("turnaround", turnaround);
-        b.add("speed", speed);
+        b.add("password", pwd);
         
         return b.build();
     }
+    
 }

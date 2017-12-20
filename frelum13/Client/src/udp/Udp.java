@@ -12,9 +12,6 @@ package udp;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
  
 public class Udp

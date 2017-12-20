@@ -16,10 +16,10 @@ import server.response.ResponseStart;
  */
 public class RequestStart extends AbstractRequest
 {
-    private final String name;
-
-    public RequestStart(String name) {
-        this.name = name;
+    private final int id;
+      
+    public RequestStart(int id) {
+        this.id = id;
     }
 
     public RequestStart(JsonObject jsonObj) throws RequestException, Exception {
@@ -29,16 +29,17 @@ public class RequestStart extends AbstractRequest
             throw new RequestException("wrong number of attributes");
         try 
         {  
-            name = jsonObj.getString("name");
+            id = jsonObj.getInt("id");
         } 
         catch (Exception e) 
         {
-            throw new RequestException("no attribute name", e);
+            throw new RequestException("no attribute id", e);
         }
         
-        if(name == null || name.isEmpty())
-            throw new RequestException("name must not be empty");
-            
+        if(id == 0)
+            throw new RequestException("id must not be empty");
+        
+        Main.ID = id;
     }
     
     @Override
