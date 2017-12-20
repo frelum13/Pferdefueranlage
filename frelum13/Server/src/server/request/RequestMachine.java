@@ -48,7 +48,7 @@ public class RequestMachine extends AbstractRequest{
 
     @Override
     public AbstractResponse getResponse() throws Exception {
-        Horse horse = Database.getInstance().read("SELECT * FROM horses WHERE id = '" + Main.ID + "'");
+        Horse horse = Database.getInstance().read("SELECT * FROM horses WHERE id = '" + Main.ID.get() + "'");
         
         return new ResponseMachine(this, Main.WATER, horse.getTime() , horse.getTurnaround(), horse.getSpeed(), Main.STOP);
     }

@@ -41,10 +41,9 @@ public class UDPServer implements Runnable
             log.info("Server: Server gestarted");
             DatagramSocket sock = null;
          
-            //1. creating a server socket, parameter is local port number
+            
             sock = new DatagramSocket(port);
              
-            //buffer to receive incoming data
             byte[] buffer = new byte[57600];
             DatagramPacket incoming = new DatagramPacket(buffer, buffer.length);
             
@@ -64,6 +63,7 @@ public class UDPServer implements Runnable
                 ImageIO.write(wCam.getImage(), "JPG", baos);
                 baos.flush();
                 byte[] bild = baos.toByteArray();
+                System.out.println(bild.length);
                 DatagramPacket dp = new DatagramPacket(bild , bild.length , incoming.getAddress() , incoming.getPort());
                 sock.send(dp);
             }

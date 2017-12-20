@@ -38,8 +38,10 @@ public class RequestStart extends AbstractRequest
         
         if(id == 0)
             throw new RequestException("id must not be empty");
+        if(!Main.ID.compareAndSet(-1, id)) {
+            // Fehler
+        }
         
-        Main.ID = id;
     }
     
     @Override

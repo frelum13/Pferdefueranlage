@@ -40,6 +40,7 @@ public abstract class AbstractRequest {
                 case "start": rv = new RequestStart(jsonObj); break;
                 case "get": rv = new RequestMachine(jsonObj); break;
                 case "all": rv = new RequestAll(jsonObj); break;
+                case "login": rv = new RequestLogin(jsonObj); break;
                 default: throw new RequestJsonException(json, "invalid command");
             }
             return rv;
