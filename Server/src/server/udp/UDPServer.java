@@ -55,7 +55,7 @@ public class UDPServer implements Runnable
             
             while(true){
                 sock.receive(incoming); 
-                piCamera.turnOffPreview().setFullPreviewOff().enableBurst().setDateTimeOff().setRotation(180).setHorizontalFlipOff().setTimestampOff().setTimeout(1).setISO(100).setQuality(100).setPreviewOpacity(100);
+                piCamera.turnOffPreview().setFullPreviewOff().enableBurst().setDateTimeOff().setHorizontalFlipOff().setTimestampOff().setTimeout(1).setISO(100).setQuality(100).setPreviewOpacity(100);
                 log.info("UDP: Client hat sich verbunden");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
                 ImageIO.write(piCamera.takeBufferedStill(), "JPG", baos);
